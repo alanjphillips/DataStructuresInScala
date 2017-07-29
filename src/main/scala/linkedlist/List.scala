@@ -64,28 +64,37 @@ trait LinkedList[+A] {
         else inner(curr + 1, pos, next)
       }
     }
-    inner(1, position, this)
+    if (position >= 0 && position < size)
+      inner(0, position, this)
+    else
+      None
   }
 
   def findByPositionFold(position: Int): Option[A] =
-    foldLeft((1, Option.empty[A])) {
-      (acc, next) => {
-        if (position == acc._1)
-          (acc._1 + 1, Some(next))
-        else
-          (acc._1 + 1, acc._2)
-      }
-    }._2
+    if (position >= 0 && position < size)
+      foldLeft((0, Option.empty[A])) {
+        (acc, next) => {
+          if (position == acc._1)
+            (acc._1 + 1, Some(next))
+          else
+            (acc._1 + 1, acc._2)
+        }
+      }._2
+    else
+      None
 
   def removeByPosition(position: Int): LinkedList[A] =
-    foldLeft((1, LinkedList[A]())) {
-      (acc, next) => {
-        if (position == acc._1)
-          (acc._1 + 1, acc._2)
-        else
-          (acc._1 + 1, Node(next, acc._2))
-      }
-    }._2.reverse
+    if (position >= 0 && position < size)
+      foldLeft((0, LinkedList[A]())) {
+        (acc, next) => {
+          if (position == acc._1)
+            (acc._1 + 1, acc._2)
+          else
+            (acc._1 + 1, Node(next, acc._2))
+        }
+      }._2.reverse
+    else
+      this
 
 }
 
