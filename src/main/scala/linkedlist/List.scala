@@ -67,6 +67,16 @@ trait LinkedList[+A] {
     inner(1, position, this)
   }
 
+  def findByPositionFold(position: Int): Option[A] =
+    foldLeft((1, Option.empty[A])) {
+      (acc, next) => {
+        if (position == acc._1)
+          (acc._1 + 1, Some(next))
+        else
+          (acc._1 + 1, acc._2)
+      }
+    }._2
+
   def removeByPosition(position: Int): LinkedList[A] =
     foldLeft((1, LinkedList[A]())) {
       (acc, next) => {

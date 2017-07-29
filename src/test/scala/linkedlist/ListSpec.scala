@@ -76,6 +76,16 @@ class ListSpec extends WordSpec with Matchers {
       listMulti.findByPosition(5) shouldBe None
     }
 
+    "find node by position using fold in a LinkedList" in {
+      val listMulti = LinkedList(22, 33, 44, 55)
+      listMulti.findByPositionFold(0) shouldBe None
+      listMulti.findByPositionFold(1) shouldBe Some(22)
+      listMulti.findByPositionFold(2) shouldBe Some(33)
+      listMulti.findByPositionFold(3) shouldBe Some(44)
+      listMulti.findByPositionFold(4) shouldBe Some(55)
+      listMulti.findByPositionFold(5) shouldBe None
+    }
+
     "remove node by position from a LinkedList" in {
       val listMulti = LinkedList(22, 33, 44, 55)
       listMulti.removeByPosition(0) shouldBe Node(22, Node(33, Node(44, Node(55, Empty))))
