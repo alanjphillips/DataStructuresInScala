@@ -96,6 +96,33 @@ trait LinkedList[+A] {
     else
       this
 
+  /**
+    * Not possible to create cycle in immutable linkedlist but maybe this would discover if one was created using stream and converted
+    */
+  def hasCycle: Boolean = {
+    @tailrec
+    def inner(slowFast: (LinkedList[A], LinkedList[A])): Boolean = slowFast match {
+      case (_, Empty) => false
+      case (slow: Node[A], fast: Node[A]) =>
+        if (fast.tail == Empty)
+          false
+        else if (slow == fast)
+          true
+        else
+          inner((slow.tail, fastTailHop(fast.tail)))
+    }
+
+    def fastTailHop(fastTail: LinkedList[A]) = fastTail match {
+      case Empty         => Empty
+      case node: Node[A] => node.tail
+    }
+
+    this match {
+      case Empty         => false
+      case node: Node[A] => inner(node, node.tail)
+    }
+  }
+
 }
 
 object LinkedList {

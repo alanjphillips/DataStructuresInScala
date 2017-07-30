@@ -98,6 +98,7 @@ class ListSpec extends WordSpec with Matchers {
       LinkedList(22).size shouldBe 1
       LinkedList(22, 33, 44, 55).size shouldBe 4
     }
+
   }
 
 }
