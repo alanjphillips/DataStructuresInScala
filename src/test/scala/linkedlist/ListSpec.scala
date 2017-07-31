@@ -99,6 +99,14 @@ class ListSpec extends WordSpec with Matchers {
       LinkedList(22, 33, 44, 55).size shouldBe 4
     }
 
+    "check if LinkedList is a palindrome" in {
+      val listPal = LinkedList(22, 33, 44, 55, 44, 33, 22)
+      listPal.isPalindrome shouldBe true
+
+      val listNon = LinkedList(22, 33, 44, 55, 33, 22)
+      listNon.isPalindrome shouldBe false
+    }
+
   }
 
 }

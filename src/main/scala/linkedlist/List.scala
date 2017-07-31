@@ -3,14 +3,14 @@ package linkedlist
 import scala.annotation.tailrec
 
 case object Empty extends LinkedList[Nothing] {
-  val size = 0
+  override val size = 0
 }
 
 case class Node[A](element: A, tail: LinkedList[A]) extends LinkedList[A] {
-  val size = 1 + tail.size
+  override val size = 1 + tail.size
 }
 
-trait LinkedList[+A] {
+trait LinkedList[+A] extends LinkedListUtils[A] {
 
   def size: Int
 
@@ -96,8 +96,32 @@ trait LinkedList[+A] {
     else
       this
 
+}
+
+object LinkedList {
+
+  def apply[A](a: A*): LinkedList[A] = {
+    @tailrec
+    def inner(lst: LinkedList[A], seq: A*): LinkedList[A] = {
+      if (seq.isEmpty)
+        lst
+      else
+        inner(Node(seq.head, lst), seq.tail: _*)
+    }
+    inner(Empty, a.reverse: _*)
+  }
+
+}
+
+trait LinkedListUtils[+A] {
+  this: LinkedList[A] =>
+
+  def size: Int = size
+
+  def isPalindrome: Boolean = this.reverse == this
+
   /**
-    * Not possible to create cycle in immutable linkedlist but maybe this would discover if one was created using stream and converted
+    * Not possible to create cycle in immutable linkedlist but this could discover if one was created using stream and converted to List. Not tested.
     */
   def hasCycle: Boolean = {
     @tailrec
@@ -121,21 +145,6 @@ trait LinkedList[+A] {
       case Empty         => false
       case node: Node[A] => inner(node, node.tail)
     }
-  }
-
-}
-
-object LinkedList {
-
-  def apply[A](a: A*): LinkedList[A] = {
-    @tailrec
-    def inner(lst: LinkedList[A], seq: A*): LinkedList[A] = {
-      if (seq.isEmpty)
-        lst
-      else
-        inner(Node(seq.head, lst), seq.tail: _*)
-    }
-    inner(Empty, a.reverse: _*)
   }
 
 }
