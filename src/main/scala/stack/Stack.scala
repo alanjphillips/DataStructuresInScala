@@ -21,7 +21,5 @@ trait Stackable[+A] {
 }
 
 object Stack {
-
   def apply[A](): Stack[A] = new Stack()
-
 }
