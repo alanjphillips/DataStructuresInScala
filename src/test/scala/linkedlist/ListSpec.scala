@@ -93,6 +93,14 @@ class ListSpec extends WordSpec with Matchers {
       listMulti.removeByPosition(4) shouldBe Node(22, Node(33, Node(44, Node(55, Empty))))
     }
 
+    "remove first node from a LinkedList" in {
+      val listMulti = LinkedList(22, 33)
+      listMulti.removeFirst shouldBe Node(33, Empty)
+
+      val listSingle = LinkedList(33)
+      listSingle.removeFirst shouldBe Empty
+    }
+
     "return size of a LinkedList" in {
       LinkedList().size shouldBe 0
       LinkedList(22).size shouldBe 1

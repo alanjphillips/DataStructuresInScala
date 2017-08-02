@@ -96,6 +96,11 @@ trait LinkedList[+A] extends LinkedListUtils[A] {
     else
       this
 
+  def removeFirst: LinkedList[A] = this match {
+    case Empty         => Empty
+    case Node(_, next) => next
+  }
+
 }
 
 object LinkedList {
