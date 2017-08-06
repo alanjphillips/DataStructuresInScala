@@ -4,6 +4,13 @@ import linkedlist.{Empty, LinkedList, Node}
 
 case class Queue[+A] private (list: LinkedList[A] = Empty) extends Queueable[A]
 
+
+/**
+  * Further improvements:
+  * A better implementation would involve using 2 lists to represent Queue, an 'in' list and an 'out' list
+  * Instead of calling reverse for every dequeue operation, reverse will only be called on the 'in' list when it
+  * replaces the empty 'out' list
+  */
 trait Queueable[+A] {
   this: Queue[A] =>
 
