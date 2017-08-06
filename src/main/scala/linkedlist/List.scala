@@ -111,7 +111,7 @@ object LinkedList {
       if (seq.isEmpty)
         lst
       else
-        inner(Node(seq.head, lst), seq.tail: _*)
+        inner(Node(seq.head, lst), seq.tail: _*)  // treat as variable arg sequence by using _*
     }
     inner(Empty, a.reverse: _*)
   }
