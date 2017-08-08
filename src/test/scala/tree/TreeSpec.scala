@@ -42,6 +42,21 @@ class TreeSpec extends WordSpec with Matchers {
       tree.delete(12) shouldBe treeBigMinus12
     }
 
+    "do a preOrder traversal returning a list" in {
+      val tree = treeBig.copy()
+      tree.preOrder() shouldBe List(5, 2, -4, 3, 12, 9, 21, 19, 25)
+    }
+
+    "do an inOrder traversal returning a list" in {
+      val tree = treeBig.copy()
+      tree.inOrder() shouldBe List(-4, 2, 3, 5, 9, 12, 19, 21, 25)
+    }
+
+    "do a postOrder traversal returning a list" in {
+      val tree = treeBig.copy()
+      tree.postOrder() shouldBe List(-4, 3, 2, 9, 19, 25, 21, 12, 5)
+    }
+
   }
 
 }
